@@ -79,22 +79,24 @@ void marray_garbage_collector( int64_t** marray, size_t* sizes, size_t rows) {
 //найти минимальный элемент M (один на весь массив массивов);
 //вычесть M изо всех элементов массива массивов;
 //вывести результат.
-void perform() {
+int perform() {
     size_t rows;
     size_t* sizes;
     int64_t* min;
     int64_t** marray;
     marray = marray_read(&rows, &sizes);
     if(marray == NULL)
-        return;
+        return 1;
     min = marray_int_min(marray, sizes, rows);
     if(min){
         marray_normalize(marray, sizes, rows, *min);
         marray_print(marray, sizes, rows);
+        return 1;
     }
     marray_garbage_collector(marray, sizes, rows);
+    return 0;
 }
 
 int main(){
-    perform();
+    return perform();
 }
